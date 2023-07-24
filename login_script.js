@@ -36,7 +36,7 @@ module.exports = (oauthProvider, message, content) => `
     // send message to main window with da app
     window.opener.postMessage(
       'authorization:${oauthProvider}:${message}:${JSON.stringify(content)}',
-      appOrigin || e.origin
+      ${appOrigin} || e.origin
     )
   }
   window.addEventListener("message", recieveMessage, false)
