@@ -6,7 +6,7 @@ if (!process.env.ORIGINS.match(REQUIRED_ORIGIN_PATTERN)) {
     of origins that login can succeed on.')
 }
 const origins = process.env.ORIGINS.split(',')
-
+const appOrigin = process.env.APP_ORIGIN || '';
 
 module.exports = (oauthProvider, message, content) => `
 <script>
@@ -36,7 +36,7 @@ module.exports = (oauthProvider, message, content) => `
     // send message to main window with da app
     window.opener.postMessage(
       'authorization:${oauthProvider}:${message}:${JSON.stringify(content)}',
-      e.origin
+      appOrigin || e.origin
     )
   }
   window.addEventListener("message", recieveMessage, false)
